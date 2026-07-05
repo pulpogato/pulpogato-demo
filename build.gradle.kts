@@ -4,7 +4,11 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
-val repo = if (project.hasProperty("repo")) project.property("repo") else "central"
+val repo = property("repo")
+val pulpogatoVersion = property("pulpogatoVersion")
+val ghVersion = property("ghVersion")
+val netflixDgsVersion = property("netflixDgsVersion")
+
 group = when (repo) {
     "jitpack" -> "com.github.pulpogato.pulpogato"
     else -> "io.github.pulpogato"
@@ -41,8 +45,8 @@ repositories {
                     includeGroup("io.github.pulpogato")
                 }
                 credentials {
-                    username = project.findProperty("gpr.user")!! as String
-                    password = project.findProperty("gpr.key")!! as String
+                    username = property("gpr.user") as String
+                    password = property("gpr.key") as String
                 }
             }
             mavenCentral {
@@ -65,9 +69,8 @@ configurations.all {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.+")
-    implementation("$group:pulpogato-rest-${property("ghesVersion")}:${property("pulpogatoVersion")}")
-    implementation("$group:pulpogato-graphql-${property("ghesVersion")}:${property("pulpogatoVersion")}")
+    implementation("$group:pulpogato-rest-$ghVersion:$pulpogatoVersion")
+    implementation("$group:pulpogato-graphql-$ghVersion:$pulpogatoVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter-test")
@@ -76,7 +79,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${property("netflixDgsVersion")}")
+        mavenBom("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:$netflixDgsVersion")
     }
 }
 
