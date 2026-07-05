@@ -3,7 +3,7 @@ name: Gradle Build
 on:
   pull_request:
   push:
-    branches: [ "*" ]
+    branches: ["*"]
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,13 @@ jobs:
       packages: read
     strategy:
       matrix:
-        repo: [central, github, jitpack]
+        include:
+          - repo: central
+            pulpogatoVersion: 3.1.0
+          - repo: github
+            pulpogatoVersion: 3.1.0
+          - repo: jitpack
+            pulpogatoVersion: main-SNAPSHOT
     steps:
       - uses: actions/checkout@v3
       - uses: gradle/actions/wrapper-validation@v6
@@ -28,4 +34,5 @@ jobs:
           ./gradlew -Prepo=${{ matrix.repo }} \
               -Pgpr.user=${{ env.GITHUB_ACTOR }} \
               -Pgpr.key=${{ secrets.GITHUB_TOKEN }} \
+              -PpulpogatoVersion=${{ matrix.pulpogatoVersion }} \
               build
