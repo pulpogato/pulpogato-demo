@@ -4,7 +4,12 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
-group = "io.github.pulpogato"
+val repo = if (project.hasProperty("repo")) project.property("repo") else "central"
+group = when (repo) {
+    "jitpack" -> "com.github.pulpogato.pulpogato"
+    else -> "io.github.pulpogato"
+}
+
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -14,7 +19,43 @@ java {
 }
 
 repositories {
-    mavenCentral()
+    when (repo) {
+        "jitpack" -> {
+            maven {
+                url = uri("https://jitpack.io")
+                content {
+                    includeGroup("com.github.pulpogato.pulpogato")
+                }
+            }
+            mavenCentral {
+                content {
+                    excludeGroup("io.github.pulpogato")
+                }
+            }
+        }
+
+        "github" -> {
+            maven {
+                url = uri("https://maven.pkg.github.com/pulpogato/pulpogato")
+                content {
+                    includeGroup("io.github.pulpogato")
+                }
+                credentials {
+                    username = project.findProperty("gpr.user")!! as String
+                    password = project.findProperty("gpr.key")!! as String
+                }
+            }
+            mavenCentral {
+                content {
+                    excludeGroup("io.github.pulpogato")
+                }
+            }
+        }
+
+        else -> {
+            mavenCentral()
+        }
+    }
 }
 
 configurations.all {
