@@ -36,3 +36,16 @@ jobs:
               -Pgpr.key=${{ secrets.GITHUB_TOKEN }} \
               -PpulpogatoVersion=${{ matrix.pulpogatoVersion }} \
               build
+  matrix-success:
+    runs-on: ubuntu-24.04-arm
+    needs: build
+    if: always()
+    steps:
+      - name: Check matrix status
+        run: |
+          # If the matrix job did not succeed, fail this summary job
+          if [ "${{ needs.build.result }}" != "success" ]; then
+            echo "One or more matrix combinations failed."
+            exit 1
+          fi
+          echo "All matrix combinations passed successfully!"
