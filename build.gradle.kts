@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
+    id("com.diffplug.spotless") version "8.8.0"
 }
 
 val repo = property("repo")
@@ -85,4 +86,14 @@ dependencyManagement {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+spotless {
+    java {
+        palantirJavaFormat()
+    }
+    yaml {
+        prettier()
+        target("**/*.yml")
+    }
 }
