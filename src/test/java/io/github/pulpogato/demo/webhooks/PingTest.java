@@ -1,10 +1,6 @@
 package io.github.pulpogato.demo.webhooks;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 class PingTest {
 
@@ -29,8 +28,7 @@ class PingTest {
     void pingProcesses() throws Exception {
         var builder = fromFile("/ping.http");
         mockMvc.perform(builder)
-                .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
-        ;
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
     }
 
     MockHttpServletRequestBuilder fromFile(String filename) throws URISyntaxException {
@@ -38,7 +36,9 @@ class PingTest {
         if (resourceAsStream == null) {
             throw new IllegalArgumentException("Resource not found: " + filename);
         }
-        var content = new Scanner(resourceAsStream, StandardCharsets.UTF_8).useDelimiter("\\A").next();
+        var content = new Scanner(resourceAsStream, StandardCharsets.UTF_8)
+                .useDelimiter("\\A")
+                .next();
         System.out.println(content);
         List<String> lines = new ArrayList<>(Arrays.asList(content.split("\n")));
 

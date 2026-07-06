@@ -4,13 +4,12 @@ import io.github.pulpogato.rest.schemas.WebhookPing;
 import io.github.pulpogato.rest.schemas.WebhookPush;
 import io.github.pulpogato.rest.webhooks.PingWebhooks;
 import io.github.pulpogato.rest.webhooks.PushWebhooks;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/github-webhook")
@@ -45,5 +44,4 @@ public class HooksController implements PushWebhooks<UUID>, PingWebhooks<UUID> {
         log.info("Received ping: {}", requestBody);
         return ResponseEntity.ok(UUID.randomUUID());
     }
-
 }
