@@ -16,11 +16,11 @@ jobs:
       matrix:
         include:
           - repo: central
-            pulpogatoVersion: 3.1.0
+            pulpogatoVersion: 3.2.0
           - repo: github
-            pulpogatoVersion: 3.1.0
+            pulpogatoVersion: 3.2.0
           - repo: jitpack
-            pulpogatoVersion: main-SNAPSHOT
+            pulpogatoVersion: v3.2.0
     steps:
       - uses: actions/checkout@v7
       - uses: gradle/actions/wrapper-validation@v6
