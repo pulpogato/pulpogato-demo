@@ -12,4 +12,4 @@ fi
 
 ### Use Jitpack
 ./gradlew build -Prepo=jitpack \
-    -PpulpogatoVersion=main-SNAPSHOT
+    -PpulpogatoVersion=v3.2.0
