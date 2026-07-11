@@ -16,11 +16,8 @@ jobs:
       matrix:
         include:
           - repo: central
-            pulpogatoVersion: 3.2.0
           - repo: github
-            pulpogatoVersion: 3.2.0
           - repo: jitpack
-            pulpogatoVersion: v3.2.0
     steps:
       - uses: actions/checkout@v7
       - uses: gradle/actions/wrapper-validation@v6
@@ -34,7 +31,6 @@ jobs:
           ./gradlew -Prepo=${{ matrix.repo }} \
               -Pgpr.user=${{ env.GITHUB_ACTOR }} \
               -Pgpr.key=${{ secrets.GITHUB_TOKEN }} \
-              -PpulpogatoVersion=${{ matrix.pulpogatoVersion }} \
               build
   matrix-success:
     runs-on: ubuntu-24.04-arm
