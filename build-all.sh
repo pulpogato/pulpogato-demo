@@ -11,5 +11,4 @@ if [ "$GITHUB_USER" != "" ]; then
 fi
 
 ### Use Jitpack
-./gradlew build -Prepo=jitpack \
-    -PpulpogatoVersion=v3.2.0
+./gradlew build -Prepo=jitpack
