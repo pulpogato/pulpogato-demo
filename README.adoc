@@ -1,0 +1,13 @@
+= Pulpogato Demo
+
+Demo for https://pulpogato.github.io[Pulpogato].
+
+The first part of the demo is dependency management.
+Look at `build.gradle.kts` to see how the dependency is managed through each of the three repositories.
+Running it locally involves calling `./scripts/build-all.sh` to wire up all 3.
+You need to set GITHUB_ACTOR and GITHUB_TOKEN to use the GitHub Maven repository.
+
+The second part of the demo is running the application.
+The application is a simple Spring Boot application that exposes a REST endpoint.
+You can run the application by executing `./gradlew bootRun`.
+To test the application, run `./scripts/send-request.sh` to send a request to the endpoint.
