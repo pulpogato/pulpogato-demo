@@ -2,6 +2,7 @@ package io.github.pulpogato.demo.webhooks;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import io.github.pulpogato.rest.webhooks.WebhookHeadersArgumentResolver;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +21,9 @@ class PingTest {
 
     @BeforeEach
     void setUp() {
-        mockMvc = standaloneSetup(new HooksController()).build();
+        mockMvc = standaloneSetup(new HooksController())
+                .setCustomArgumentResolvers(new WebhookHeadersArgumentResolver())
+                .build();
     }
 
     @Test

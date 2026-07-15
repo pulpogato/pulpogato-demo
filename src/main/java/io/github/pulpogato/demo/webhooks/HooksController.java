@@ -4,6 +4,7 @@ import io.github.pulpogato.rest.schemas.WebhookPing;
 import io.github.pulpogato.rest.schemas.WebhookPush;
 import io.github.pulpogato.rest.webhooks.PingWebhooks;
 import io.github.pulpogato.rest.webhooks.PushWebhooks;
+import io.github.pulpogato.rest.webhooks.WebhookHeaders;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,29 +19,13 @@ public class HooksController implements PushWebhooks<UUID>, PingWebhooks<UUID> {
     private final Logger log = LoggerFactory.getLogger(HooksController.class);
 
     @Override
-    public ResponseEntity<UUID> processPush(
-            String userAgent,
-            String xGithubHookId,
-            String xGithubEvent,
-            String xGithubHookInstallationTargetId,
-            String xGithubHookInstallationTargetType,
-            String xGitHubDelivery,
-            String xHubSignature256,
-            WebhookPush requestBody) {
+    public ResponseEntity<UUID> processPush(WebhookHeaders headers, WebhookPush requestBody) {
         log.info("Received push event: {}", requestBody);
         return ResponseEntity.ok(UUID.randomUUID());
     }
 
     @Override
-    public ResponseEntity<UUID> processPing(
-            String userAgent,
-            String xGithubHookId,
-            String xGithubEvent,
-            String xGithubHookInstallationTargetId,
-            String xGithubHookInstallationTargetType,
-            String xGitHubDelivery,
-            String xHubSignature256,
-            WebhookPing requestBody) {
+    public ResponseEntity<UUID> processPing(WebhookHeaders headers, WebhookPing requestBody) {
         log.info("Received ping: {}", requestBody);
         return ResponseEntity.ok(UUID.randomUUID());
     }
