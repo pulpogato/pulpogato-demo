@@ -4,10 +4,10 @@
 ./gradlew build
 
 ### Use GitHub Packages
-if [ "$GITHUB_USER" != "" ]; then
+if [ "$GITHUB_ACTOR" != "" ]; then
     ./gradlew build -Prepo=github \
-        -Pgpr.user=$GITHUB_USER \
-        -Pgpr.key=$GITHUB_PAT
+        -Pgpr.user=$GITHUB_ACTOR \
+        -Pgpr.key=$GITHUB_TOKEN
 fi
 
 ### Use Jitpack
