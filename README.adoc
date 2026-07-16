@@ -1,13 +1,89 @@
 = Pulpogato Demo
 
-Demo for https://pulpogato.github.io[Pulpogato].
+Demo Spring Boot app for https://github.com/pulpogato/pulpogato[Pulpogato], a generated Java client for the GitHub API.
 
-The first part of the demo is dependency management.
-Look at `build.gradle.kts` to see how the dependency is managed through each of the three repositories.
-Running it locally involves calling `./scripts/build-all.sh` to wire up all 3.
-You need to set GITHUB_ACTOR and GITHUB_TOKEN to use the GitHub Maven repository.
+This project shows two things:
 
-The second part of the demo is running the application.
-The application is a simple Spring Boot application that exposes a REST endpoint.
-You can run the application by executing `./gradlew bootRun`.
-To test the application, run `./scripts/send-request.sh` to send a request to the endpoint.
+. How to resolve Pulpogato artifacts from Maven Central, GitHub Packages, or JitPack
+. How to handle typed GitHub webhooks (`ping` and `push`) with Pulpogato in Spring MVC
+
+== Prerequisites
+
+* Java 21
+* The Gradle Wrapper in this repo (`./gradlew`)
+
+For GitHub Packages only, set:
+
+* `GITHUB_ACTOR` — your GitHub username
+* `GITHUB_TOKEN` — a token with `read:packages`
+
+== Dependency management
+
+Look at `build.gradle.kts` for how the Maven group, repositories, and credentials change per source.
+Defaults live in `gradle.properties` (`repo=central`, `ghVersion=fpt`, `pulpogatoVersion`, and so on).
+
+|===
+| `repo` value | Source
+
+| `central` (default)
+| Maven Central
+
+| `github`
+| GitHub Packages (`maven.pkg.github.com/pulpogato/pulpogato`)
+
+| `jitpack`
+| JitPack
+|===
+
+Build against all three (GitHub Packages is skipped if `GITHUB_ACTOR` is unset):
+
+[source,bash]
+----
+./scripts/build-all.sh
+----
+
+Or build one source at a time:
+
+[source,bash]
+----
+./gradlew build -Prepo=central
+./gradlew build -Prepo=jitpack
+./gradlew build -Prepo=github \
+  -Pgpr.user="$GITHUB_ACTOR" \
+  -Pgpr.key="$GITHUB_TOKEN"
+----
+
+== Running the app
+
+The app exposes `POST /github-webhook`.
+`HooksController` implements Pulpogato's `PingWebhooks` and `PushWebhooks`, so incoming payloads are bound to typed models such as `WebhookPing` and `WebhookPush`.
+
+Start it with:
+
+[source,bash]
+----
+./gradlew bootRun
+----
+
+== Sending a test webhook
+
+With the app running, replay a sample GitHub `ping` delivery from `src/test/resources/ping.http`:
+
+[source,bash]
+----
+./scripts/send-request.sh
+----
+
+Optional arguments: base URL (default `http://localhost:8080`) and path to an `.http` file:
+
+[source,bash]
+----
+./scripts/send-request.sh http://localhost:8080 src/test/resources/ping.http
+----
+
+== Tests
+
+[source,bash]
+----
+./gradlew test
+----
