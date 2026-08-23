@@ -6,9 +6,9 @@ plugins {
 }
 
 val repo = property("repo")
-val pulpogatoVersion = property("pulpogatoVersion")
 val ghVersion = property("ghVersion")
-val netflixDgsVersion = property("netflixDgsVersion")
+val pulpogatoVersion = libs.versions.pulpogato.get()
+val netflixDgsVersion = libs.versions.netflixDgs.get()
 
 group = when (repo) {
     "jitpack" -> "com.github.pulpogato.pulpogato"
@@ -85,7 +85,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:$netflixDgsVersion")
+        mavenBom(libs.netflix.dgs.get().toString())
     }
 }
 

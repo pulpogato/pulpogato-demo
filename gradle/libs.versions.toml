@@ -1,0 +1,8 @@
+[versions]
+pulpogato = "3.3.0"
+netflixDgs = "12.0.1"
+
+[libraries]
+pulpogato-rest = { module = "io.github.pulpogato:pulpogato-rest-fpt", version.ref = "pulpogato" }
+pulpogato-graphql = { module = "io.github.pulpogato:pulpogato-graphql-fpt", version.ref = "pulpogato" }
+netflix-dgs = { module = "com.netflix.graphql.dgs:graphql-dgs-platform-dependencies", version.ref = "netflixDgs" }
