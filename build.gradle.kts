@@ -1,8 +1,8 @@
 plugins {
     java
-    id("org.springframework.boot") version "4.1.1"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("com.diffplug.spotless") version "8.10.0"
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.spotless)
 }
 
 val repo = property("repo")
@@ -10,15 +10,17 @@ val ghVersion = property("ghVersion")
 val pulpogatoVersion = libs.versions.pulpogato.get()
 val netflixDgsVersion = libs.versions.netflixDgs.get()
 
-group = when (repo) {
-    "jitpack" -> "com.github.pulpogato.pulpogato"
-    else -> "io.github.pulpogato"
-}
+group =
+    when (repo) {
+        "jitpack" -> "com.github.pulpogato.pulpogato"
+        else -> "io.github.pulpogato"
+    }
 
-val versionPrefix = when (repo) {
-    "jitpack" -> "v"
-    else -> ""
-}
+val versionPrefix =
+    when (repo) {
+        "jitpack" -> "v"
+        else -> ""
+    }
 
 version = "0.0.1-SNAPSHOT"
 
@@ -75,8 +77,8 @@ configurations.all {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter")
-    implementation("${group}:pulpogato-rest-$ghVersion:${versionPrefix}${pulpogatoVersion}")
-    implementation("${group}:pulpogato-graphql-$ghVersion:${versionPrefix}${pulpogatoVersion}")
+    implementation("$group:pulpogato-rest-$ghVersion:${versionPrefix}$pulpogatoVersion")
+    implementation("$group:pulpogato-graphql-$ghVersion:${versionPrefix}$pulpogatoVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter-test")
@@ -85,7 +87,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom(libs.netflix.dgs.get().toString())
+        mavenBom("${libs.netflix.dgs.get()}")
     }
 }
 

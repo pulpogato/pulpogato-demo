@@ -49,8 +49,8 @@ Or build one source at a time:
 ./gradlew build -Prepo=central
 ./gradlew build -Prepo=jitpack
 ./gradlew build -Prepo=github \
-  -Pgpr.user="$GITHUB_ACTOR" \
-  -Pgpr.key="$GITHUB_TOKEN"
+    -Pgpr.user="$GITHUB_ACTOR" \
+    -Pgpr.key="$GITHUB_TOKEN"
 ----
 
 == Running the app

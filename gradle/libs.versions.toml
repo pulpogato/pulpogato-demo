@@ -1,8 +1,16 @@
 [versions]
-pulpogato = "3.3.0"
 netflixDgs = "12.0.1"
+pulpogato = "3.3.0"
+spotless = "8.10.0"
+spring-boot = "4.1.1"
+spring-dependency-management = "1.1.7"
 
 [libraries]
+netflix-dgs = { module = "com.netflix.graphql.dgs:graphql-dgs-platform-dependencies", version.ref = "netflixDgs" }
 pulpogato-rest = { module = "io.github.pulpogato:pulpogato-rest-fpt", version.ref = "pulpogato" }
 pulpogato-graphql = { module = "io.github.pulpogato:pulpogato-graphql-fpt", version.ref = "pulpogato" }
-netflix-dgs = { module = "com.netflix.graphql.dgs:graphql-dgs-platform-dependencies", version.ref = "netflixDgs" }
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
