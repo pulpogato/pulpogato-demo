@@ -6,6 +6,7 @@ import io.github.pulpogato.rest.webhooks.PingWebhooks;
 import io.github.pulpogato.rest.webhooks.PushWebhooks;
 import io.github.pulpogato.rest.webhooks.WebhookHeaders;
 import java.util.UUID;
+import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/github-webhook")
+@NullMarked
 public class HooksController implements PushWebhooks<UUID>, PingWebhooks<UUID> {
 
     private final Logger log = LoggerFactory.getLogger(HooksController.class);
