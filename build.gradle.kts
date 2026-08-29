@@ -7,7 +7,7 @@ plugins {
 
 val repo = property("repo")
 val ghVersion = property("ghVersion")
-val pulpogatoVersion = libs.versions.pulpogato.get()
+val pulpogatoVersion = property("pulpogatoVersion")
 val netflixDgsVersion = libs.versions.netflixDgs.get()
 
 group =
@@ -18,7 +18,7 @@ group =
 
 val versionPrefix =
     when (repo) {
-        "jitpack" -> "v"
+        "jitpack" -> if (pulpogatoVersion.toString().matches("^[0-9].*".toRegex())) "v" else ""
         else -> ""
     }
 

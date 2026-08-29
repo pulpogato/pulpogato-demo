@@ -42,15 +42,26 @@ Build against all three (GitHub Packages is skipped if `GITHUB_ACTOR` is unset):
 ./scripts/build-all.sh
 ----
 
+To change the version of Pulpogato, set `pulpogatoVersion` in `gradle.properties` or on the command line:
+
+[source,bash]
+----
+./scripts/build-all.sh -PpulpogatoVersion=3.6.0
+----
+
 Or build one source at a time:
 
 [source,bash]
 ----
 ./gradlew build -Prepo=central
-./gradlew build -Prepo=jitpack
+
 ./gradlew build -Prepo=github \
     -Pgpr.user="$GITHUB_ACTOR" \
-    -Pgpr.key="$GITHUB_TOKEN"
+    -Pgpr.key="$GITHUB_TOKEN" \
+    -PpulpogatoVersion=3.6.0
+
+./gradlew build -Prepo=jitpack \
+    -PpulpogatoVersion=main-SNAPSHOT
 ----
 
 == Running the app
