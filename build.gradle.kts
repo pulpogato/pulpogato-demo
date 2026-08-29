@@ -102,5 +102,6 @@ spotless {
     yaml {
         prettier()
         target("**/*.yml")
+        targetExclude("**/build/**", "**/node_modules/**")
     }
 }
