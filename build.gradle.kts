@@ -74,6 +74,8 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor(1, "hours")
 }
 
+println("Using repo: $repo, ghVersion: $ghVersion, group: $group, pulpogatoVersion: ${versionPrefix}$pulpogatoVersion")
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter")
