@@ -1,5 +1,7 @@
 package io.github.pulpogato.demo.webhooks;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import io.github.pulpogato.rest.webhooks.WebhookHeadersArgumentResolver;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
@@ -29,8 +32,9 @@ class PingTest {
     @Test
     void pingProcesses() throws Exception {
         var builder = fromFile("/ping.http");
-        mockMvc.perform(builder)
-                .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
+        var result = mockMvc.perform(builder).andExpect(status().isOk()).andReturn();
+        var responseBody = result.getResponse().getContentAsString();
+        assertThat(responseBody).isNotBlank().satisfies(body -> UUID.fromString(body.replace("\"", "")));
     }
 
     MockHttpServletRequestBuilder fromFile(String filename) {
