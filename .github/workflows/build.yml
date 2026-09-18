@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: "Build with Gradle"
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     permissions:
       packages: read
     strategy:
@@ -33,7 +33,7 @@ jobs:
               -Pgpr.key=${{ secrets.GITHUB_TOKEN }} \
               build
   matrix-success:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     needs: build
     if: always()
     steps:
