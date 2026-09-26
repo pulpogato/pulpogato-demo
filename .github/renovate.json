@@ -5,13 +5,13 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "(^|/)gradle\\.properties$"
-      ],
       "matchStrings": [
         "pulpogatoVersion=(?<currentValue>\\S+)"
       ],
-      "depNameTemplate": "io.github.pulpogato:pulpogato-common",
+      "managerFilePatterns": [
+        "(^|/)gradle\\.properties$"
+      ],
+      "depNameTemplate": "io.github.pulpogato:pulpogato-rest-fpt",
       "datasourceTemplate": "maven"
     }
   ]
