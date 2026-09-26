@@ -1,5 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [ "config:recommended" ],
-  "automerge": true
+  "automerge": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "(^|/)gradle\\.properties$"
+      ],
+      "matchStrings": [
+        "pulpogatoVersion=(?<currentValue>\\S+)"
+      ],
+      "depNameTemplate": "io.github.pulpogato:pulpogato-common",
+      "datasourceTemplate": "maven"
+    }
+  ]
 }
