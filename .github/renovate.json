@@ -8,7 +8,7 @@
       "matchStrings": [
         "pulpogatoVersion=(?<currentValue>\\S+)"
       ],
-      "managerFilePatterns": [
+      "fileMatch": [
         "(^|/)gradle\\.properties$"
       ],
       "depNameTemplate": "io.github.pulpogato:pulpogato-rest-fpt",
