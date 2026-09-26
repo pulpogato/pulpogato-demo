@@ -1,6 +1,6 @@
 [versions]
 netflixDgs = "12.1.0"
-spotless = "8.10.2"
+spotless = "8.10.3"
 spring-boot = "4.1.1"
 spring-dependency-management = "1.1.7"
 
