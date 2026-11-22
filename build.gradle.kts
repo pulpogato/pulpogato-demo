@@ -16,12 +16,6 @@ group =
         else -> "io.github.pulpogato"
     }
 
-val versionPrefix =
-    when (repo) {
-        "jitpack" -> if (pulpogatoVersion.toString().matches("^[0-9].*".toRegex())) "v" else ""
-        else -> ""
-    }
-
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -74,13 +68,13 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor(1, "hours")
 }
 
-println("Using repo: $repo, ghVersion: $ghVersion, group: $group, pulpogatoVersion: ${versionPrefix}$pulpogatoVersion")
+println("Using repo: $repo, ghVersion: $ghVersion, group: $group, pulpogatoVersion: $pulpogatoVersion")
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter")
-    implementation("$group:pulpogato-rest-$ghVersion:${versionPrefix}$pulpogatoVersion")
-    implementation("$group:pulpogato-graphql-$ghVersion:${versionPrefix}$pulpogatoVersion")
+    implementation("$group:pulpogato-rest-$ghVersion:$pulpogatoVersion")
+    implementation("$group:pulpogato-graphql-$ghVersion:$pulpogatoVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter-test")
